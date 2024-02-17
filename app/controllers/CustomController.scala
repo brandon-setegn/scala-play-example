@@ -15,8 +15,20 @@ abstract class CustomController(
     override protected def executionContext: ExecutionContext = cc.executionContext
 
     override def invokeBlock[A](request: Request[A], block: (Request[A]) => Future[Result]): Future[Result] = {
-      logger.logger.info(s"Request: $request")
-      block(request)
+      time(request) {
+        block(request)
+      }
+    }
+
+    private[this] def time[A, R](request: Request[A])(block: => R): R = {
+      logger.info(s"Request: $request")
+      val t0 = System.currentTimeMillis
+      try {
+        block
+      } finally {
+        val t1 = System.currentTimeMillis
+        logger.info(s"Request: $request; took ${t1 - t0}")
+      }
     }
   }
 }

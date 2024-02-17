@@ -14,6 +14,7 @@ class HelloWorldController @Inject()(
   cc: ControllerComponents
 )(implicit ec: ExecutionContext) extends CustomController(cc) {
   def index() = Action { implicit request: Request[AnyContent] =>
+    Thread.sleep(1000)
     Ok("Hello World")
   }
 }
