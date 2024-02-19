@@ -47,6 +47,21 @@
     </encoder>
   </appender>
 
+  <appender name="STDOUT_JSON" class="ConsoleAppender">
+    <encoder class="LoggingEventCompositeJsonEncoder">
+      <providers>
+        <timestamp/>
+        <logLevel/>
+        <loggerName/>
+        <threadName/>
+        <message/>
+        <logstashMarkers/>
+        <arguments/>
+        <stackTrace/>
+      </providers>
+    </encoder>
+  </appender>
+
   <appender name="ASYNCFILE" class="AsyncAppender">
     <appender-ref ref="FILE"/>
   </appender>
@@ -56,7 +71,7 @@
   </appender>
 
   <appender name="ASYNCSTDOUT" class="AsyncAppender">
-    <appender-ref ref="STDOUT"/>
+    <appender-ref ref="STDOUT_JSON"/>
   </appender>
 
   <logger name="play" level="INFO"/>
@@ -64,8 +79,8 @@
   <logger name="v1.post" level="TRACE"/>
 
   <root level="INFO">
-    <appender-ref ref="ASYNCFILE"/>
-    <appender-ref ref="ASYNCJSON"/>
+<!--    <appender-ref ref="ASYNCFILE"/>-->
+<!--    <appender-ref ref="ASYNCJSON"/>-->
     <appender-ref ref="ASYNCSTDOUT"/>
   </root>
 

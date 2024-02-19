@@ -1,14 +1,15 @@
 package controllers
 
+import net.logstash.logback.argument.StructuredArguments
 import play.api.Logger
 import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
 
-abstract class CustomController(
+abstract class LoggingController(
   cc: ControllerComponents
 )(implicit ec: ExecutionContext) extends AbstractController(cc) {
-  private val logger = Logger(this.getClass)
+  protected val logger = Logger(this.getClass).logger
 
   override def Action: ActionBuilder[Request, AnyContent] = new ActionBuilder[Request, AnyContent] {
     override def parser: BodyParser[AnyContent] = cc.parsers.defaultBodyParser
@@ -27,7 +28,10 @@ abstract class CustomController(
         block
       } finally {
         val t1 = System.currentTimeMillis
-        logger.info(s"Request: $request; took ${t1 - t0}")
+        logger.info(
+          s"Request: $request; took ${t1 - t0}",
+          StructuredArguments.keyValue("elapsed", t1 - t0),
+        )
       }
     }
   }

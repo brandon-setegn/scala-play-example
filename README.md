@@ -20,7 +20,7 @@ Play will start up on the HTTP port at <http://localhost:9000/>.   You don't nee
 
 To build a linux compatible package in a tgz file, use the sbt `Universal / packageZipTarball` command.
 
-This builds a .tgz file.  This can be extracted and run.
+This builds a .tgz file in the `target/universal` directory.  This can be extracted and run.
 #### Extract
 ```bash
 tar -xvzf play-scala-rest-api-example-1.0-SNAPSHOT.tgz   
@@ -44,5 +44,14 @@ docker build -t scala-play-example .
 
 #### Example Run Command
 ```bash
-docker run -e APPLICATION_SECRET={secret} scala-play-example 
+docker run -p 9000:9000 -e APPLICATION_SECRET={secret} scala-play-example 
 ```
+
+## Terraform Cloud Run Deploy
+
+#### Example Publish Command
+```bash
+docker tag scala-play-example us-east1-docker.pkg.dev/{project}/cloud-run-example/scala-play-example
+docker push us-east1-docker.pkg.dev/{project}/cloud-run-example/scala-play-example
+```
+

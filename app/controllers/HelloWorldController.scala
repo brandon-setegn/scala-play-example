@@ -12,9 +12,10 @@ import scala.concurrent.ExecutionContext
 @Singleton
 class HelloWorldController @Inject()(
   cc: ControllerComponents
-)(implicit ec: ExecutionContext) extends CustomController(cc) {
+)(implicit ec: ExecutionContext) extends LoggingController(cc) {
   def index() = Action { implicit request: Request[AnyContent] =>
     Thread.sleep(1000)
+    logger.info("Hello World")
     Ok("Hello World")
   }
 }
