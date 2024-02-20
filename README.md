@@ -2,6 +2,8 @@
 
 This is the example project for making an API in Play.  This API will also use Open Telemetry tracing.
 
+## More Details
+Can be found in this post on how to deploy a Scala project to Cloud run with Terraform.(https://brandon-setegn.github.io/posts/Cloud-Run-and-Terraform/)
 
 ### Running
 
@@ -47,11 +49,8 @@ docker build -t scala-play-example .
 docker run -p 9000:9000 -e APPLICATION_SECRET={secret} scala-play-example 
 ```
 
-## Terraform Cloud Run Deploy
-
 #### Example Publish Command
 ```bash
 docker tag scala-play-example us-east1-docker.pkg.dev/{project}/cloud-run-example/scala-play-example
 docker push us-east1-docker.pkg.dev/{project}/cloud-run-example/scala-play-example
 ```
-
